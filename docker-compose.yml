@@ -1,0 +1,29 @@
+version: "3"
+services:
+ postgres:
+  image: postgres
+  restart: always
+  container_name: postgres
+  ports:
+   - 5432:5432
+  environment:
+   - POSTGRES_USER=salt
+   - POSTGRES_DB=graphql
+   - POSTGRES_PASSWORD=salt
+  healthcheck:
+   test: ["CMD-SHELL", "pg_isready"]
+   interval: 10s
+   timeout: 5s
+   retries: 5
+
+ app:
+# besides commenting out, you can pass --no-build flag to docker compose as well
+# build: ./app
+  image: saltaaron/demo-graphql
+  container_name: demo-graphql
+  hostname: demo-graphql
+  depends_on:
+   postgres:
+    condition: service_healthy
+  ports:
+   - 4000:4000
