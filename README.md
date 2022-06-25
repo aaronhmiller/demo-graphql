@@ -1,3 +1,7 @@
+***
+**_NOTE_**: Does not handle Mutations
+***
+
 ## A GraphQL Demo App
 
 ### To begin
